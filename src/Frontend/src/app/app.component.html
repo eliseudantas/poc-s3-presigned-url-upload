@@ -1,0 +1,230 @@
+<main class="p-10">
+  <section class="text-neutral-600 dark:text-neutral-200">
+
+    <!-- Main headings -->
+    <h1 class="text-5xl font-bold mb-5">File Upload Sample</h1>
+    <h4 class="text-2xl italic text-neutral-500 dark:text-neutral-400 mb-8">Upload a csv file directly to S3 from the browser via presigned URL.</h4>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-9 items-start">
+      
+      <div class="block rounded-lg col-span-2 bg-white p-6 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
+        <h5 class="mb-2 text-xl font-medium leading-tight">Upload .csv to S3</h5>
+        <div class="mb-3">
+          <input
+            accept=".csv"
+            class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-secondary-500 bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal leading-[2.15] text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] file:text-surface focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none dark:border-white/70 dark:text-white  file:dark:text-white"
+            id="fileSelector" (change)="onSelectedFile($event)"  type="file" />
+        </div>
+        
+        <div class="relative mb-3" >
+          <input type="text"
+            class="peer m-0 block h-[58px] w-full rounded border border-solid border-secondary-500 bg-transparent bg-clip-padding px-3 py-4 text-base font-normal leading-tight text-neutral-700 transition duration-200 ease-linear placeholder:text-transparent focus:border-primary focus:pb-[0.625rem] focus:pt-[1.625rem] focus:text-neutral-700 focus:outline-none peer-focus:text-primary dark:border-neutral-400 dark:text-white dark:autofill:shadow-autofill dark:focus:border-primary dark:peer-focus:text-primary [&:not(:placeholder-shown)]:pb-[0.625rem] [&:not(:placeholder-shown)]:pt-[1.625rem]"
+            id="backendUrl"  [value]="backendUrl"  />
+          <label for="floatingInput"
+            class="pointer-events-none absolute left-0 top-0 origin-[0_0] border border-solid border-transparent px-3 py-4 text-neutral-500 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-y-2 peer-focus:translate-x-[0.15rem] peer-focus:scale-[0.85] peer-focus:text-primary peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:translate-x-[0.15rem] peer-[:not(:placeholder-shown)]:scale-[0.85] motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary">
+          Backend API
+          </label>
+        </div>
+        <div class="mb-3">{{fileDetails}}</div>
+        <div class="h-1 w-full mt-5 mb-5 bg-neutral-200 dark:bg-neutral-600">
+            <div class="h-1 bg-primary" [style.width.%]="uploadFileProgress"></div>
+        </div>
+       
+        <button type="button" (click)="uploadFile()"
+          class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+          data-twe-ripple-init data-twe-ripple-color="light">
+          UPLOAD
+        </button>
+      </div>
+      <div class="block rounded-lg bg-white p-6 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
+        <h5 class="mb-2 text-xl font-medium leading-tight">Generate CSV</h5>
+        <p class="mb-4 text-base">
+        
+        </p>
+        <div class="relative mb-3">
+          <input type="number"
+          accept=".csv"
+            class="peer m-0 block h-[58px] w-full rounded border border-solid border-secondary-500 bg-transparent bg-clip-padding px-3 py-4 text-base font-normal leading-tight text-neutral-700 transition duration-200 ease-linear placeholder:text-transparent focus:border-primary focus:pb-[0.625rem] focus:pt-[1.625rem] focus:text-neutral-700 focus:outline-none peer-focus:text-primary dark:border-neutral-400 dark:text-white dark:autofill:shadow-autofill dark:focus:border-primary dark:peer-focus:text-primary [&:not(:placeholder-shown)]:pb-[0.625rem] [&:not(:placeholder-shown)]:pt-[1.625rem]"
+            id="rowCount" [(ngModel)]="rowCounts" min="1" />
+          <label for="floatingInput"
+            class="pointer-events-none absolute left-0 top-0 origin-[0_0] border border-solid border-transparent px-3 py-4 text-neutral-500 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-y-2 peer-focus:translate-x-[0.15rem] peer-focus:scale-[0.85] peer-focus:text-primary peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:translate-x-[0.15rem] peer-[:not(:placeholder-shown)]:scale-[0.85] motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary">Number
+            of rows
+          </label> 
+        </div>
+       
+        <button (click)="generateAndDownloadCsv()" type="button"
+          class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+          data-twe-ripple-init data-twe-ripple-color="light">
+          GENERATE .CSV FILE
+        </button>
+      </div>
+    </div>
+    <!-- Additional Options Dividers -->
+    <hr class="h-[2px] bg-gray-100 dark:bg-gray-600 my-10 border-none" />
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mt-9">
+      <!-- First column -->
+      <div class=" p-4 col-span-2">
+        <!-- Component headings -->
+        <h5 class="text-lg font-bold mb-2">File Upload History</h5>
+        <p class="text-base italic text-neutral-500 dark:text-neutral-400 mb-4"> History of all the files uploaded to S3 (local storage).</p>
+
+        <!-- Table responsive wrapper -->
+        <div class="overflow-x-auto bg-white dark:bg-neutral-700">
+
+          <table class="min-w-full text-left text-xs whitespace-nowrap">
+
+            <!-- Table head -->
+            <thead class="uppercase tracking-wider border-b-2 dark:border-neutral-600">
+              <tr>
+                <th scope="col" >
+                  # S3 key
+                </th>
+                <th scope="col" class="px-6 py-4">
+                  Rows
+                </th>
+                <th scope="col" class="px-6 py-4">
+                  Status
+                </th>
+                <th scope="col" class="px-6 py-4">
+                  
+                </th>
+              </tr>
+            </thead>
+
+            <!-- Table body -->
+            <tbody>
+              @for (item of executionJobs; track item.id) {
+                
+                <tr class="border-b dark:border-neutral-600">
+                  <td scope="row" >
+                    <span class="text-primary-500">{{ item.id }}</span>
+                  </td>
+                  <td class="px-6 py-4">{{ item.rowCount.toLocaleString() }}</td>
+                  <td class="px-6 py-4">
+                  @if (item.status === 'IN_PROGRESS') {
+                    <div class="w-full bg-neutral-200 dark:bg-neutral-600">
+                      <div class="bg-primary p-0.5 text-center text-xs font-medium leading-none text-primary-200"
+                      [style.width.%]="item.progress" >
+                        {{ item.progress }}%
+                      </div>
+                    </div>
+                  }
+                  @else {
+                    {{ item.status }}
+                  }
+                  </td>
+                  <td>
+                    <button
+                    type="button"
+                    data-twe-ripple-init
+                    data-twe-ripple-color="light"
+                    class="rounded font-semibold px-3 pb-2 pt-2.5 text-xs  uppercase leading-normal text-primary transition duration-150 ease-in-out hover:bg-neutral-100 hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700 dark:hover:bg-neutral-700">
+                    Results
+                  </button> 
+                  @if (item.status === 'COMPLETED') {
+                    <button
+                    type="button"
+                    data-twe-ripple-init
+                    data-twe-ripple-color="light"
+                    (click)="downloadFile(item.id)"
+                    class="rounded px-3 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-secondary transition duration-150 ease-in-out hover:bg-neutral-100 hover:text-secondary-600 focus:text-secondary-600 focus:outline-none focus:ring-0 active:text-secondary-700 dark:hover:bg-neutral-700">
+                    DOWNLOAD .CSV
+                  </button>
+                  <button
+                    type="button"
+                    (click)="deleteFile(item.id)"
+                    data-twe-ripple-init
+                    data-twe-ripple-color="light"
+                    class="rounded px-3 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-secondary transition duration-150 ease-in-out hover:bg-neutral-100 hover:text-secondary-600 focus:text-secondary-600 focus:outline-none focus:ring-0 active:text-secondary-700 dark:hover:bg-neutral-700">
+                    DELETE
+                  </button>
+                  }
+                  </td>
+                   
+                </tr>
+              }
+              
+
+
+            </tbody>
+
+          </table>
+
+          <!-- Table -->
+          <table style="display: none;" class="min-w-full text-left text-xs whitespace-nowrap">
+
+            <!-- Table head -->
+            <thead class="uppercase tracking-wider border-b-2 dark:border-neutral-600">
+              <tr>
+                <th scope="col" >
+                  # Job ID
+                </th>
+                <th scope="col" >
+                  Extimated Cost
+                </th>
+                <th scope="col" class="px-6 py-4">
+                  Rows
+                </th>
+                <th scope="col" class="px-6 py-4">
+                  Status
+                </th>
+                <th scope="col" class="px-6 py-4">
+                  Progress
+                </th>
+                <th scope="col" class="px-6 py-4">
+                  
+                </th>
+              </tr>
+            </thead>
+
+            <!-- Table body -->
+            <tbody>
+
+              <tr class="border-b dark:border-neutral-600">
+                <td scope="row" >
+                  <span class="text-primary-500">12390AB</span>
+                </td>
+                <td >$129.99</td>
+                <td class="px-6 py-4">30</td>
+                <td class="px-6 py-4">In Progress</td>
+                <td class="px-6 py-4">
+                  <div class="w-full bg-neutral-200 dark:bg-neutral-600">
+                    <div class="bg-primary p-0.5 text-center text-xs font-medium leading-none text-primary-200"
+                      style="width: 25%">
+                      25%
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <button
+                  type="button"
+                  data-twe-ripple-init
+                  data-twe-ripple-color="light"
+                  class="rounded px-3 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-secondary transition duration-150 ease-in-out hover:bg-neutral-100 hover:text-secondary-600 focus:text-secondary-600 focus:outline-none focus:ring-0 active:text-secondary-700 dark:hover:bg-neutral-700">
+                  Job Details
+                </button>
+                <button
+                type="button"
+                data-twe-ripple-init
+                data-twe-ripple-color="light"
+                class="rounded font-semibold px-3 pb-2 pt-2.5 text-xs  uppercase leading-normal text-primary transition duration-150 ease-in-out hover:bg-neutral-100 hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700 dark:hover:bg-neutral-700">
+                Results
+              </button>
+                </td>
+              </tr>
+
+
+            </tbody>
+
+          </table>
+
+        </div>
+      </div>
+     
+    </div>
+  </section>
+  <router-outlet />
+</main>

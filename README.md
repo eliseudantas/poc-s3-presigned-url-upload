@@ -37,6 +37,13 @@ npm install
 ng serve --open
 ```
 
+## A Poem
+
+*Files drift up to the cloud so high,*
+*A presigned URL shows them the way.*
+*Lambda signs, and Gateway replies,*
+*S3 holds each upload safe to stay.*
+
 ## Delete the resources
 
 To delete the resources created by the SAM template, you can run the following command:

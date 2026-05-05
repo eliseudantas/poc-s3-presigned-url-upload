@@ -1,4 +1,13 @@
-# S3 upload with Presigned URL 
+# S3 upload with Presigned URL
+
+## Goal
+
+This project demonstrates a secure, serverless file upload pattern using AWS S3 presigned URLs. Instead of routing file data through a backend server, the backend (API Gateway + Lambda) generates a short-lived presigned URL and returns it to the client. The client then uploads the file directly to S3 using that URL, keeping the backend lightweight and eliminating unnecessary data transfer costs.
+
+The stack consists of:
+- **Backend**: .NET 8 AWS Lambda function exposed via API Gateway, responsible for generating presigned URLs.
+- **Frontend**: Angular application that requests the presigned URL and performs the direct-to-S3 upload.
+- **Infrastructure**: Defined with AWS SAM (Serverless Application Model).
 
 This is a simple example of how to create a presigned URL to upload a file to an S3 bucket. In this example, the presigned URL is created by a API (Api Gateway + Lambda) and returned to the client. The client can then use the URL to upload a file to the S3 bucket.
 

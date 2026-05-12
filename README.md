@@ -2,20 +2,25 @@
 
 ## A Poem
 
-A client calls the API with care,
-"I need to upload, but how do I dare?"
-The Lambda wakes, signs a URL with grace,
-A fleeting token, a key to S3 space.
+*A client wants to share a file,*
+*but sending through the server? That takes a while.*
+*So Lambda steps in with a token in hand,*
+*a presigned URL — exactly as planned.*
 
-The Angular app sends the file on its way,
-No secrets exposed, credentials won't stray.
-SAM builds the scaffold — Gateway, Lambda, Bucket —
-A serverless stack, and nothing can chuck it.
+*API Gateway listens, a request comes through,*
+*the .NET Lambda knows just what to do.*
+*It signs the path to the S3 shore,*
+*and hands it back — no proxy, no more.*
 
-Deploy with a guide, then watch the output appear,
-An ARN, an endpoint — the resources are here.
-When done, run `sam delete`, let the cloud breathe free,
-Such is the beauty of presigned URL thee.
+*The Angular frontend, sleek and bright,*
+*takes that URL and uploads with might.*
+*Straight to the bucket, no middleman's cost,*
+*not a single byte of bandwidth lost.*
+
+*SAM builds it all with a command or two,*
+*`sam build`, `sam deploy` — and the cloud is brand new.*
+*When the demo is done and the resources must go,*
+*`sam delete` sweeps clean, leaving nothing below.*
 
 This is a simple example of how to create a presigned URL to upload a file to an S3 bucket. In this example, the presigned URL is created by a API (Api Gateway + Lambda) and returned to the client. The client can then use the URL to upload a file to the S3 bucket.
 

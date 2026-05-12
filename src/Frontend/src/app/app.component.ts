@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UploadComponent } from './upload/upload.component';
-import { HttpEventType, HttpHeaders, provideHttpClient } from '@angular/common/http';
+import { HttpEventType } from '@angular/common/http';
 import { Tooltip, initTWE, Dropdown, Ripple } from 'tw-elements';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, interval, Observable, Subscription, switchMap } from 'rxjs';
@@ -10,7 +9,7 @@ import config from '../config';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, UploadComponent,FormsModule],
+  imports: [RouterOutlet, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

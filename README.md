@@ -1,4 +1,4 @@
-# S3 upload with Presigned URL 
+# ServerlessUploader
 
 This is a simple example of how to create a presigned URL to upload a file to an S3 bucket. In this example, the presigned URL is created by a API (Api Gateway + Lambda) and returned to the client. The client can then use the URL to upload a file to the S3 bucket.
 

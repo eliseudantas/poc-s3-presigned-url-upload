@@ -1,8 +1,3 @@
-﻿using Enyim.Caching.Memcached;
-using StackExchange.Redis;
-using Amazon.StepFunctions;
-using Amazon.DynamoDBv2;
-
 namespace BackendAPI;
 
 
@@ -52,9 +47,6 @@ public class Startup
             logging.AddDebug();
         });
         
-        services.AddSingleton<IAmazonStepFunctions>(x => new AmazonStepFunctionsClient());
-        services.AddSingleton<IAmazonDynamoDB>(x => new AmazonDynamoDBClient());
-
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

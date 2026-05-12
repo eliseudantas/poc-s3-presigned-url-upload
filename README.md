@@ -1,6 +1,6 @@
-# S3 upload with Presigned URL 
+# S3Shuttle - Serverless file transfer via presigned URLs
 
-This is a simple example of how to create a presigned URL to upload a file to an S3 bucket. In this example, the presigned URL is created by a API (Api Gateway + Lambda) and returned to the client. The client can then use the URL to upload a file to the S3 bucket.
+S3Shuttle is a serverless file upload solution that uses AWS API Gateway and Lambda to generate S3 presigned URLs, allowing clients to upload files directly to an S3 bucket. The presigned URL is created by the backend API and returned to the client, which then uses it to upload the file securely.
 
 Note: you need the SAM CLI installed. 
 

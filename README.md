@@ -1,6 +1,6 @@
-# S3 upload with Presigned URL 
+# CloudRelay
 
-This is a simple example of how to create a presigned URL to upload a file to an S3 bucket. In this example, the presigned URL is created by a API (Api Gateway + Lambda) and returned to the client. The client can then use the URL to upload a file to the S3 bucket.
+CloudRelay is a serverless file transfer solution that bridges users and AWS S3 storage via presigned URLs. A .NET Lambda API (via API Gateway) generates short-lived presigned URLs, which the Angular frontend uses to upload and download files directly to/from S3 — without routing file data through the backend.
 
 Note: you need the SAM CLI installed. 
 

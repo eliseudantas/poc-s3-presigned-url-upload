@@ -1,4 +1,21 @@
-# S3 upload with Presigned URL 
+# S3 upload with Presigned URL
+
+## A Poem
+
+*A client needs to send a file,*
+*but the server shouldn't bear the trial.*
+*So Lambda signs a URL with care,*
+*and hands it off — "upload it there."*
+
+*The gateway answers every call,*
+*a presigned link returned to all.*
+*The browser takes it, swift and true,*
+*and sends the bytes straight through to S3's queue.*
+
+*No data flows through Lambda's gate,*
+*S3 receives it — clean and straight.*
+*A simple dance of keys and time,*
+*serverless upload, by design.*
 
 This is a simple example of how to create a presigned URL to upload a file to an S3 bucket. In this example, the presigned URL is created by a API (Api Gateway + Lambda) and returned to the client. The client can then use the URL to upload a file to the S3 bucket.
 

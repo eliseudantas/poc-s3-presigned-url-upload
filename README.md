@@ -1,6 +1,6 @@
-# S3 upload with Presigned URL 
+# LambdaVault
 
-This is a simple example of how to create a presigned URL to upload a file to an S3 bucket. In this example, the presigned URL is created by a API (Api Gateway + Lambda) and returned to the client. The client can then use the URL to upload a file to the S3 bucket.
+**LambdaVault** is a serverless file upload solution that uses AWS Lambda and API Gateway to generate S3 presigned URLs, enabling secure direct-to-S3 uploads from the browser. The presigned URL is created by the backend API (API Gateway + Lambda) and returned to the client, which then uses it to upload files directly to the S3 bucket.
 
 Note: you need the SAM CLI installed. 
 

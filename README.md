@@ -45,3 +45,13 @@ To delete the resources created by the SAM template, you can run the following c
 sam delete
 ```
 
+---
+
+## Poem
+
+A coder once built with great cheer  
+A presigned URL scheme, crystal clear  
+   The Lambda would sign  
+   The S3 combine  
+So files could upload from anywhere, dear!
+

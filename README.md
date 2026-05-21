@@ -1,5 +1,22 @@
 # S3 upload with Presigned URL 
 
+```
+Clouds of bytes, a file to send,
+Through browser gates, around the bend.
+No server hoards the payload stream,
+A signed URL, a fleeting dream.
+
+The Lambda stirs, the gateway calls,
+A signature on S3's walls.
+Angular crafts the form displayed,
+A CSV upload, unafraid.
+
+Direct to buckets, swift and grand,
+Across the cloud, to存储 land.
+A proof of concept, clean and light,
+Pre-signed and gone — a lovely sight.
+```
+
 This is a simple example of how to create a presigned URL to upload a file to an S3 bucket. In this example, the presigned URL is created by a API (Api Gateway + Lambda) and returned to the client. The client can then use the URL to upload a file to the S3 bucket.
 
 Note: you need the SAM CLI installed. 
